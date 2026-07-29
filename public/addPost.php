@@ -1,14 +1,14 @@
 <?php
+if(session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 if(!isset($_SESSION['user_id'])) {
   header("Location: login.php");
   exit();
 }
+$errors = [];
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
-    session_start();
     require "../config/db.php";
-    echo "<pre>";
-    var_dump($_SESSION);
-    echo "</pre>";
     $file = $_FILES['image'];
 
     $fileName = $file['name'];
@@ -39,52 +39,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
                     $stmt = $pdo->prepare($sql);
                     $stmt->execute([$_SESSION['user_id'], $newFileName, $title, $category, $fileDestination, $content]);
 
-                    // header("Location: index.php");
-                    // exit();
+                    header("Location: index.php");
+                    exit();
                 } else {
-                    echo "Failed to move uploaded file.";
+                    $errors[] = "Failed to move uploaded file.";
                 }
             } else {
-                echo "Your file is too large. Max limit is 5MB.";
+                $errors[] = "Your file is too large. Max limit is 5MB.";
             }
         } else {
-            echo "There was an error uploading your file.";
+            $errors[] = "There was an error uploading your file.";
         }
     } else {
-        echo "Invalid file type. Only JPG, JPEG, PNG, and GIF allowed.";
+        $errors[] = "Invalid file type. Only JPG, JPEG, PNG, and GIF allowed.";
     }
 }
 ?>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add Blog Page | Blog Website</title>
-    <link rel="stylesheet" href="style.css" />
-    <script
-      src="https://kit.fontawesome.com/7a4b62b0a4.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
-  <body>
-    <header>
-      <nav>
-        <h1>Great Zone</h1>
-        <ul>
-          <a href="index.php">
-            <li>Home</li>
-          </a>
-          <li>Posts</li>
-          <li>
-            <a href="addPost.php">Add Post</a>
-          </li>
-        </ul>
-      </nav>
-    </header>
+<?php require "../views/header.php" ?>
     <div style="display: flex;align-items:center;justify-content:center;">
   <div class="form-container">
     <h2>Create New Blog Post</h2>
+    <?php foreach($errors as $error) : ?>
+        <p><?= $error ?></p>
+    <?php endforeach ?>
     <form action="addPost.php" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label>Title</label>
@@ -113,5 +90,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
     </form>
   </div>
   </div>
-</body>
-</html>
+<?php require "../views/footer.php" ?>
