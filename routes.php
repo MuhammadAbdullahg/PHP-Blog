@@ -15,4 +15,6 @@ if($path === '/PHP-blog/public/') {
     require __DIR__ . '/controllers/auth/logout.php';
 } else if($path === '/PHP-blog/public/post') {
     require __DIR__ . '/controllers/posts/post.php';
+} else if($path === '/PHP-blog/public/category') {
+    require __DIR__ . '/controllers/posts/category.php';
 }
