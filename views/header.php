@@ -16,19 +16,24 @@
       <nav>
         <h1>Great Zone</h1>
         <ul>
-          <a href="index.php">
+          <a href="/PHP-blog/public/">
             <li>Home</li>
           </a>
           <li>
-            <a href="addPost.php">Add Post</a>
+            <a href="/PHP-blog/public/addPost">Add Post</a>
           </li>
           <?php if(isset($_SESSION['user_id'])) : ?>
             <li>
-              <a href="logout.php">Logout</a>
+              <a href="/PHP-blog/public/logout">Logout</a>
             </li>
           <?php else : ?>
             <li>
-              <a href="login.php">Login</a>
+              <a href="/PHP-blog/public/login">Login</a>
+            </li>
+          <?php endif; ?>
+          <?php if(isset($_SESSION['user_name'])) : ?>
+            <li>
+              <a href="#">Welcome <?= $_SESSION['user_name'] ?></a>
             </li>
           <?php endif; ?>
         </ul>
