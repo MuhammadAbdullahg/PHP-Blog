@@ -27,8 +27,18 @@ function allPosts() {
     return $stmt->fetchAll();
 }
 
-function route(string $path, string $route, string $controller) {
-    if($path === $route) {
+function route(string $route, string $controller) {
+    $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+    $requestUri = str_replace("/PHP-blog/public", "", $path);
+
+    $uri = rtrim($requestUri, "/");
+
+    if($uri == "") {
+        $uri = "/";
+    }
+    
+    if($uri === $route) {
         require __DIR__ . $controller;
     }
 }
