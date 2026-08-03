@@ -1,11 +1,7 @@
 <?php require __DIR__ . '/../header.php' ?>
 <form method="post">
-    <!-- <input type="hidden" name="Science" value="Science">
-    <input type="hidden" name="Food" value="Food">
-    <input type="hidden" name="Other" value="Other"> -->
     <nav>
         <ul>
-            <!-- <input type="hidden" name="Tech" value="Tech"> -->
           <button type="submit" name="category" value="Tech">
             Tech
           </button>

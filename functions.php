@@ -19,3 +19,10 @@ function sessionValidation() {
         exit();
     }
 }
+
+function allPosts() {
+    require __DIR__ . '/config/db.php';
+    $stmt = $pdo->prepare("SELECT * FROM posts");
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
