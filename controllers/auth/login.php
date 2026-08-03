@@ -11,7 +11,8 @@
       $errors[] = "Please fill all field";
     }
       
-    $userData = queryInfo("email", $email);
+    $stmt = queryInfo("email", $email, "users");
+    $userData = $stmt->fetch();
         
     if(!$userData || !password_verify($password, $userData['password'])) {
       $errors[] = "Invalid email or password";

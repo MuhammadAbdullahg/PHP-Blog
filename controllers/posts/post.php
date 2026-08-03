@@ -10,9 +10,7 @@ if(!isset($_GET['id'])) {
   
 $id = (int) $_GET['id'];
 
-$stmt = $pdo->prepare("SELECT * FROM posts WHERE id = ?");
-$stmt->execute([$id]);
-
+$stmt = queryInfo("id", $id, "posts");
 $post = $stmt->fetch();
 
 require __DIR__ . '/../../views/posts/post.view.php';

@@ -8,10 +8,8 @@ $posts = allPosts();
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $category = trim($_POST['category']);
     
-    $stmt = $pdo->prepare("SELECT * FROM posts WHERE category = ?");
-    $stmt->execute([$category]);
-    
-    $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt = queryInfo("category", $category, "posts");
+    $posts = $stmt->fetchAll();
 }
 
 require __DIR__ . '/../../views/posts/category.view.php';

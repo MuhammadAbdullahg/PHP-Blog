@@ -5,12 +5,12 @@ function sessionStartCheck() {
     }
 }
         
-function queryInfo(string $col, string $value) {
+function queryInfo(string $col, string $value, string $table) {
     require __DIR__ . '/config/db.php';
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE {$col} = ?");
+    $stmt = $pdo->prepare("SELECT * FROM {$table} WHERE {$col} = ?");
         
     $stmt->execute([$value]);
-    return $stmt->fetch();
+    return $stmt;
 }
 
 function sessionValidation() {

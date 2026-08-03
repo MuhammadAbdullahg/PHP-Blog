@@ -11,7 +11,9 @@
       $errors[] = "Please fill all field";
     }
       
-    $existingUser = queryInfo("email", $email);
+    $stmt = queryInfo("email", $email, "users");
+
+    $existingUser = $stmt->fetchAll();
         
     if($existingUser) {
       $errors[] = "User already exist";
