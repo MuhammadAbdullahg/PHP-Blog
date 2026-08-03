@@ -1,20 +1,21 @@
 <?php
 
-$uri = $_SERVER['REQUEST_URI'];
-$path = parse_url($uri, PHP_URL_PATH);
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-if($path === '/PHP-blog/public/') {
-    require __DIR__ . '/controllers/posts/index.php';
-} else if($path === '/PHP-blog/public/addPost') {
-    require __DIR__ . '/controllers/posts/addPost.php';
-} else if($path === '/PHP-blog/public/login') {
-    require __DIR__ . '/controllers/auth/login.php';
-} else if($path === '/PHP-blog/public/register') {
-    require __DIR__ . '/controllers/auth/register.php';
-} else if($path === '/PHP-blog/public/logout') {
-    require __DIR__ . '/controllers/auth/logout.php';
-} else if($path === '/PHP-blog/public/post') {
-    require __DIR__ . '/controllers/posts/post.php';
-} else if($path === '/PHP-blog/public/category') {
-    require __DIR__ . '/controllers/posts/category.php';
+$requestUri = str_replace("/PHP-blog/public", "", $path);
+
+$uri = rtrim($requestUri, "/");
+
+if($uri == "") {
+    $uri = "/";
 }
+
+$controller = '/controllers';
+
+route($uri, '/', $controller . '/posts/index.php');
+route($uri, '/addPost', $controller . '/posts/addPost.php');
+route($uri, '/login', $controller . '/auth/login.php');
+route($uri, '/register', $controller . '/auth/register.php');
+route($uri, '/logout', $controller . '/auth/logout.php');
+route($uri, '/post', $controller . '/posts/post.php');
+route($uri, '/category', $controller . '/posts/category.php');

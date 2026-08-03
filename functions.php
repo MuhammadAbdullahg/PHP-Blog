@@ -26,3 +26,9 @@ function allPosts() {
     $stmt->execute();
     return $stmt->fetchAll();
 }
+
+function route(string $path, string $route, string $controller) {
+    if($path === $route) {
+        require __DIR__ . $controller;
+    }
+}
