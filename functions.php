@@ -1,4 +1,6 @@
 <?php
+require __DIR__ . '/autoload.php';
+use App\Core\Database;
 function sessionStartCheck() {
     if(session_status() == PHP_SESSION_NONE) {
         session_start();
@@ -6,8 +8,7 @@ function sessionStartCheck() {
 }
         
 function queryInfo(string $col, string $value, string $table) {
-    require __DIR__ . '/config/db.php';
-    $stmt = $pdo->prepare("SELECT * FROM {$table} WHERE {$col} = ?");
+    $stmt = (new Database)->getConnection()->prepare("SELECT * FROM {$table} WHERE {$col} = ?");
         
     $stmt->execute([$value]);
     return $stmt;
@@ -21,8 +22,7 @@ function sessionValidation() {
 }
 
 function allPosts() {
-    require __DIR__ . '/config/db.php';
-    $stmt = $pdo->prepare("SELECT * FROM posts");
+    $stmt = (new Database)->getConnection()->prepare("SELECT * FROM posts");
     $stmt->execute();
     return $stmt->fetchAll();
 }
