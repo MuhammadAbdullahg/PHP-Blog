@@ -10,7 +10,7 @@ spl_autoload_register(function($class) {
 
     $relativeClass = substr($class, strlen($prefix));
 
-    $file = $baseUri . str_replace('\\', '/', $relativeClass) . 'php';
+    $file = $baseUri . str_replace('\\', '/', $relativeClass) . '.php';
 
     if(file_exists($file)) {
         require $file;
