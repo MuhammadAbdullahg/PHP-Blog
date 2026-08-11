@@ -1,3 +1,4 @@
+<?php require __DIR__ . '/../config/config.php' ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,22 +17,22 @@
       <nav>
         <h1>Great Zone</h1>
         <ul>
-          <a href="/PHP-Blog/public/">
+          <a href="<?= $commonPath ?>">
             <li>Home</li>
           </a>
           <li>
-            <a href="/PHP-Blog/public/addPost">Add Post</a>
+            <a href="<?= $commonPath ?>addPost">Add Post</a>
           </li>
           <li>
-            <a href="/PHP-Blog/public/category">category</a>
+            <a href="<?= $commonPath ?>category">category</a>
           </li>
           <?php if(isset($_SESSION['user_id'])) : ?>
             <li>
-              <a href="/PHP-Blog/public/logout">Logout</a>
+              <a href="<?= $commonPath ?>logout">Logout</a>
             </li>
           <?php else : ?>
             <li>
-              <a href="/PHP-Blog/public/login">Login</a>
+              <a href="<?= $commonPath ?>login">Login</a>
             </li>
           <?php endif; ?>
           <?php if(isset($_SESSION['user_name'])) : ?>

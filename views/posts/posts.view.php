@@ -1,3 +1,4 @@
+<?php require __DIR__ . '/../../config/config.php' ?>
 <?php if(isset($_SESSION['user_id'])) : ?>
     <?php if(!empty($posts)) : ?>
           <div>
@@ -10,7 +11,7 @@
                 </p>
                 <div class="status">
                   <p><?= $post['created_at'] ?></p>
-                  <a href="/PHP-Blog/public/post?id=<?= $post['id'] ?>"><button class="read-btn">Read More</button></a>
+                  <a href="<?= $commonPath ?>post?id=<?= $post['id'] ?>"><button class="read-btn">Read More</button></a>
                 </div>
               </div>
                 <img src="<?= $post['image_path'] ?>" alt="laptop guy" />

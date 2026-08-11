@@ -14,8 +14,9 @@ function queryInfo(string $col, string $value, string $table) {
 }
 
 function sessionValidation() {
+    require __DIR__ . '/config/config.php';
     if(!isset($_SESSION['user_id'])) {
-        header("Location: /PHP-Blog/public/login");
+        header("Location: {$commonPath}login");
         exit();
     }
 }
@@ -27,17 +28,7 @@ function allPosts() {
     return $stmt->fetchAll();
 }
 
-function route(string $route, string $controller) {
-    $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-    $requestUri = str_replace("/PHP-Blog/public", "", $path);
-
-    $uri = rtrim($requestUri, "/");
-
-    if($uri == "") {
-        $uri = "/";
-    }
-    
+function route(string $uri, string $route, string $controller) {
     if($uri === $route) {
         require __DIR__ . $controller;
     }

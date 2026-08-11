@@ -1,8 +1,8 @@
 <?php
-
+require __DIR__ . '/../../config/config.php';
 sessionStartCheck();
 $_SESSION = [];
 session_destroy();
 
-header("Location: /PHP-Blog/public/login");
+header("Location: {$commonPath}login");
 exit();

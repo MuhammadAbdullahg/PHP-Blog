@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
                     $stmt = $pdo->prepare($sql);
                     $stmt->execute([$_SESSION['user_id'], $newFileName, $title, $category, $fileDestination, $content]);
 
-                    header("Location: /PHP-Blog/public/");
+                    header("Location: {$commonPath}");
                     exit();
                 } else {
                     $errors[] = "Failed to move uploaded file.";
