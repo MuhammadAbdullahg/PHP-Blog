@@ -30,7 +30,7 @@ function allPosts() {
 function route(string $route, string $controller) {
     $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-    $requestUri = str_replace("/PHP-blog/public", "", $path);
+    $requestUri = str_replace("/demo/PHP-Blog/public", "", $path);
 
     $uri = rtrim($requestUri, "/");
 
