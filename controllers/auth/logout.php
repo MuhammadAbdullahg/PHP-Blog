@@ -4,5 +4,5 @@ sessionStartCheck();
 $_SESSION = [];
 session_destroy();
 
-header("Location: /demo/PHP-Blog/public/login");
+header("Location: /PHP-Blog/public/login");
 exit();

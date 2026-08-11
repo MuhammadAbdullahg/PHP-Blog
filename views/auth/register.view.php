@@ -21,6 +21,6 @@
           <button type="submit" class="btn">Register</button>
         </form>
         <p class="link-row">
-          Already have an account? <a href="/demo/PHP-Blog/public/login">Login</a>
+          Already have an account? <a href="/PHP-Blog/public/login">Login</a>
         </p>
 <?php require __DIR__ . '/partials/footer.php' ?>

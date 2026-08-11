@@ -15,7 +15,7 @@ function queryInfo(string $col, string $value, string $table) {
 
 function sessionValidation() {
     if(!isset($_SESSION['user_id'])) {
-        header("Location: /demo/PHP-Blog/public/login");
+        header("Location: /PHP-Blog/public/login");
         exit();
     }
 }
@@ -30,7 +30,7 @@ function allPosts() {
 function route(string $route, string $controller) {
     $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-    $requestUri = str_replace("/demo/PHP-Blog/public", "", $path);
+    $requestUri = str_replace("/PHP-Blog/public", "", $path);
 
     $uri = rtrim($requestUri, "/");
 
