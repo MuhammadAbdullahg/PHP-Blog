@@ -1,9 +1,5 @@
 <?php
-
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "blog";
+require __DIR__ . '/config.php';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
