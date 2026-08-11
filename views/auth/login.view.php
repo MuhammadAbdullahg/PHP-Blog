@@ -16,5 +16,5 @@
           </div>
           <button type="submit" class="btn">Log in</button>
         </form>
-        <p class="link-row">No account? <a href="/PHP-blog/public/register">Register</a></p>
+        <p class="link-row">No account? <a href="/demo/PHP-Blog/public/register">Register</a></p>
 <?php require __DIR__ . '/partials/footer.php' ?>

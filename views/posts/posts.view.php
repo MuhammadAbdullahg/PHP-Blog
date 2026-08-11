@@ -10,7 +10,7 @@
                 </p>
                 <div class="status">
                   <p><?= $post['created_at'] ?></p>
-                  <a href="/PHP-blog/public/post?id=<?= $post['id'] ?>"><button class="read-btn">Read More</button></a>
+                  <a href="/demo/PHP-Blog/public/post?id=<?= $post['id'] ?>"><button class="read-btn">Read More</button></a>
                 </div>
               </div>
                 <img src="<?= $post['image_path'] ?>" alt="laptop guy" />

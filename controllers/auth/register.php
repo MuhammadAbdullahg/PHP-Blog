@@ -24,7 +24,7 @@
       $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
       $stmt->execute([$name, $email, $hashedPassword]);
       
-      header("Location: /PHP-blog/public/login");
+      header("Location: /demo/PHP-Blog/public/login");
       exit();
     }
   }

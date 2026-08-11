@@ -1,5 +1,4 @@
 <?php
-
 $controller = '/controllers';
 
 route('/', $controller . '/posts/index.php');

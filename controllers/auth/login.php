@@ -22,7 +22,7 @@
         $_SESSION['user_id'] = $userData['user_id'];
         $_SESSION['user_name'] = $userData['name'];
         
-        header("Location: /PHP-blog/public/");
+        header("Location: /demo/PHP-Blog/public/");
         exit();
         }
       }

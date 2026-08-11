@@ -15,7 +15,7 @@ function queryInfo(string $col, string $value, string $table) {
 
 function sessionValidation() {
     if(!isset($_SESSION['user_id'])) {
-        header("Location: /PHP-blog/public/login");
+        header("Location: /demo/PHP-Blog/public/login");
         exit();
     }
 }
