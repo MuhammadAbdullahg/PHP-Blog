@@ -10,8 +10,10 @@
         </div>
       </section>
       <?php require __DIR__ . '/postsData.view.php' ?>
+      <div style="width: 87vw; display: flex; align-items: center; justify-content: end;">
+        <button type="submit" name="allPosts" value="allPosts">
+            <a href="<?= $commonPath ?>allPosts" style="color: #fff;">All Posts</a>
+        </button>
+      </div>
     </main>
-    <button type="submit" name="allPosts" value="allPosts">
-        <a href="<?= $commonPath ?>allPosts">All Posts</a>
-    </button>
 <?php require __DIR__ . '/../footer.php' ?>
