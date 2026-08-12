@@ -1,7 +1,6 @@
 <?php  
 
 sessionStartCheck();
-sessionValidation();
 
 require __DIR__ . '/../../config/db.php';
 $posts = allPosts();

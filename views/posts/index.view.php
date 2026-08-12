@@ -9,6 +9,9 @@
           <img src="images/hero.png" alt="hero" />
         </div>
       </section>
-      <?php require __DIR__ . '/posts.view.php' ?>
+      <?php require __DIR__ . '/postsData.view.php' ?>
     </main>
+    <button type="submit" name="allPosts" value="allPosts">
+        <a href="<?= $commonPath ?>allPosts">All Posts</a>
+    </button>
 <?php require __DIR__ . '/../footer.php' ?>

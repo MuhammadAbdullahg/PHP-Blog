@@ -4,6 +4,6 @@ sessionStartCheck();
 
 require __DIR__ . '/../../config/db.php';
 
-$posts = allPosts();
+$posts = limitPosts();
 
 require __DIR__ . '/../../views/posts/index.view.php';

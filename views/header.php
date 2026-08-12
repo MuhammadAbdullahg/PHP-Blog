@@ -21,7 +21,7 @@
             <li>Home</li>
           </a>
           <li>
-            <a href="<?= $commonPath ?>addPost">Add Post</a>
+            <a href="<?= $commonPath ?>posts">Posts</a>
           </li>
           <li>
             <a href="<?= $commonPath ?>category">category</a>
