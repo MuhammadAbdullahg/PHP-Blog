@@ -76,7 +76,9 @@ main {
 /* Long Card Section */
 
 .h-card {
+  width: 30%;
   display: flex;
+  flex-direction: column;
   margin: 2rem 1rem;
   box-shadow: 0px 5px 4px rgba(221, 221, 221, 0.25);
   align-items: center;

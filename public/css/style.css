@@ -31,6 +31,10 @@ body {
   padding: 20px;
 }
 
+.hero_image {
+  width: 500px;
+}
+
 .card {
   background: var(--card-bg);
   border-radius: 12px;
