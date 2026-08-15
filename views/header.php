@@ -15,7 +15,7 @@
   <body>
     <header>
       <nav>
-        <h1><img src="../public/images/logo.png" style="width: 50px;" alt=""></h1>
+        <h1>Great Zone</h1>
         <ul>
           <a href="<?= $commonPath ?>">
             <li>Home</li>
