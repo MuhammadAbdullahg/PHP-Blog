@@ -7,10 +7,12 @@ echo "file tracking system on \n";
 $stmt = $pdo->prepare("SELECT migration FROM migrations");
 $stmt->execute();
 $executedFiles = $stmt->fetchAll(PDO::FETCH_COLUMN);
+var_dump($executedFiles);
 
 $newFiles = [];
 
 $files = glob("migrations/*.php");
+var_dump($files);
 
 foreach($files as $file) {
     if(!in_array($file, $executedFiles)) {
@@ -20,11 +22,12 @@ foreach($files as $file) {
 }
 
 echo "get unexecuted files \n";
-
+        
 if(empty($newFiles)) {
+    include_once $file;
     echo "no file for exec run again for rollback\n";
     if(array_count_values($executedFiles) == array_count_values($files)) {
-        rb($pdo);
+        down($pdo);
     }
 } else {
     foreach($newFiles as $newFile) {
