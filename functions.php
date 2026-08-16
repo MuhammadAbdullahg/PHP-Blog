@@ -23,7 +23,7 @@ function sessionValidation() {
 
 function limitPosts() {
     require __DIR__ . '/config/db.php';
-    $stmt = $pdo->prepare("SELECT * FROM posts LIMIT 3");
+    $stmt = $pdo->prepare("SELECT * FROM posts LIMIT 5");
     $stmt->execute();
     return $stmt->fetchAll();
 }

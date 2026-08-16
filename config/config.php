@@ -1,8 +1,4 @@
 <?php
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "blog";
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $commonPath = "/PHP-Blog/public/";
