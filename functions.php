@@ -44,18 +44,18 @@ function route(string $uri, string $route, string $controller) {
 function getMigrationAndSqlFiles() {
     require __DIR__ . '/config/db.php';
     echo "file tracking system on \n";
-    $count = 0;
     
+    $response = require __DIR__ . '/migrations/001-create-migration-table.php';
+    $stmt = $pdo->prepare($response['up']);
+    $stmt->execute();
+    $stmt = $pdo->prepare("SELECT COUNT(migration) FROM migrations");
+    $stmt->execute();
+    $count = $stmt->fetchColumn();
+    var_dump($count);
     if($count == 0) {
-        var_dump($count);
-        $response = require __DIR__ . '/migrations/001-create-migration-table.php';
-        $stmt = $pdo->prepare($response['up']);
-        $stmt->execute();
         $stmt = $pdo->prepare("INSERT INTO migrations (migration) VALUES (?)");
         $stmt->execute(['migrations/001-create-migration-table.php']);
     }
-    static $count = 1;
-
 
     $stmt = $pdo->prepare("SELECT migration FROM migrations ORDER BY created_at DESC");
     $stmt->execute();
