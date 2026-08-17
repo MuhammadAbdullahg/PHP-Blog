@@ -1,7 +1,6 @@
 <?php
-
-function up($pdo) {
-    $sql = $pdo->prepare("CREATE TABLE IF NOT EXISTS posts (
+return [
+    "up" => "CREATE TABLE IF NOT EXISTS posts (
         id int(11) NOT NULL,
         user_id int(11) NOT NULL,
         file_name varchar(500) NOT NULL,
@@ -11,13 +10,6 @@ function up($pdo) {
         content varchar(500) NOT NULL,
         likes bigint(20) NOT NULL,
         created_at date NOT NULL DEFAULT current_timestamp()
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
-
-    $sql->execute();
-}
-
-function down($pdo) {
-    $sql = $pdo->prepare("DROP TABLE posts");
-
-    $sql->execute();
-}
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;",
+    "down" => "DROP TABLE posts"
+];

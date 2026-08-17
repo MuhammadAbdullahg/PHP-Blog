@@ -19,14 +19,15 @@ echo "requiring unexecuted files \n";
 echo "executing sql newFile \n";
 
 foreach($files as $file) {
-    if(!in_array($file, $executedFiles)) {
+    if(in_array($file, $executedFiles)) {
         $newFiles[] = $file;
         $reponse = require_once $file;
-        $sql = $reponse["up"];
+        $sql = $reponse["down"];
+        var_dump($sql);
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         echo "updating migrations table \n";
-        $stmt = $pdo->prepare("INSERT INTO migrations (migration) VALUES (?)");
+        $stmt = $pdo->prepare("DELETE FROM migrations WHERE migration = ?");
         $stmt->execute([$file]);
     }
 }
