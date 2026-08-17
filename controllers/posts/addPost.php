@@ -1,5 +1,5 @@
 <?php  
-
+require __DIR__ . '/../../config/config.php';
 sessionStartCheck();
 sessionValidation();
 $errors = [];
