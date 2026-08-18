@@ -6,9 +6,6 @@ require "./functions.php";
 [$executedFiles, $newFiles, $files] = getMigrationAndSqlFiles();
 
 foreach($files as $index => $file) {
-    if($file == "migrations/001-create-migration-table.php") {
-        continue;
-    }
     if(!in_array($file, $executedFiles)) {
         $newFiles[] = $file;
         var_dump($file);

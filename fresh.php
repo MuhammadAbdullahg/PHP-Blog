@@ -1,6 +1,7 @@
 <?php
 
 require __DIR__ . '/config/db.php';
+require __DIR__ . '/functions.php';
 
 echo "file tracking system on \n";
 
@@ -31,9 +32,6 @@ foreach($executedFiles as $index => $executedFile) {
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         echo "updating migrations table \n";
-        if($count == $index) {
-            return;
-        }
         $stmt = $pdo->prepare("DELETE FROM migrations WHERE migration = ?");
         $stmt->execute([$executedFile]);
     }
