@@ -1,16 +1,6 @@
 <?php
 require __DIR__ . '/../autoload.php';
 require __DIR__ . '/../routes.php';
-
-$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$requestMethod = $_SERVER['REQUEST_METHOD'];
-
-$requestUri = str_replace("/PHP-Blog/public", "", $path);
-
-$uri = rtrim($requestUri, "/");
-
-if($uri == "") {
-    $uri = "/";
-}
+require __DIR__ . '/../config/config.php';
 
 $router->route($requestMethod, $uri);

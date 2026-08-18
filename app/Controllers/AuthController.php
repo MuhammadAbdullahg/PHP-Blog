@@ -30,7 +30,7 @@ class AuthController {
                 Session::set('user_id', $userData['user_id']);
                 Session::set('user_name', $userData['name']);
                 
-                header("Location: /PHP-Blog/public/");
+                header("Location: {$path}");
                 exit();
             }
         }
@@ -62,7 +62,7 @@ class AuthController {
             if(empty($errors)) {
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                 UserModel::addUser($name, $email, $hashedPassword);
-                header("Location: /PHP-Blog/public/login");
+                header("Location: {$commonPath}login");
                 exit();
             }
         }
@@ -76,7 +76,7 @@ class AuthController {
     public function logout() {
         Session::destroy();
 
-        header("Location: /PHP-Blog/public/login");
+        header("Location: {$commonPath}login");
         exit();
     }
 }

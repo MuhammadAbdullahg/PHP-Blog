@@ -47,7 +47,7 @@ class PostsController {
                                     if (move_uploaded_file($fileTmpName, $fileDestination)) {
                                         PostModel::addPost($_SESSION['user_id'], $newFileName, $title, $category, $fileDestination, $content);
 
-                                        header("Location: /PHP-Blog/public/");
+                                        header("Location: {$commonPath}");
                                         exit();
                                     } else {
                                         $errors[] = "Failed to move uploaded file.";
