@@ -41,6 +41,16 @@ function route(string $uri, string $route, string $controller) {
     }
 }
 
+function selMigOrByDesc() {
+    return "SELECT migration FROM migrations ORDER BY id DESC";
+}
+
+function addFileInMig() {
+    return "INSERT INTO migrations (migration) VALUES (?)";
+}
+function delFileInMig() {
+    return "DELETE FROM migrations WHERE migration = ?";
+}
 function getMigrationAndSqlFiles() {
     require __DIR__ . '/config/db.php';
     echo "file tracking system on \n";
@@ -52,19 +62,15 @@ function getMigrationAndSqlFiles() {
         );");
     $stmt->execute();
 
-    $stmt = $pdo->prepare("SELECT migration FROM migrations ORDER BY created_at DESC");
+    $sql = selMigOrByDesc();
+
+    $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $executedFiles = $stmt->fetchAll(PDO::FETCH_COLUMN);
     
     $newFiles = [];
     
     $files = glob("migrations/*.php");
-    
-    echo "get unexecuted files \n";
-    
-    echo "requiring unexecuted files \n";
-    
-    echo "executing sql newFile \n";
 
     return [$executedFiles, $newFiles, $files];
 }

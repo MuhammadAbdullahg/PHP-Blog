@@ -8,13 +8,15 @@ require "./functions.php";
 foreach($files as $index => $file) {
     if(!in_array($file, $executedFiles)) {
         $newFiles[] = $file;
-        var_dump($file);
+        $fn = substr($file,11);
+        var_dump($fn);
         $reponse = require_once $file;
-        $sql = $reponse["up"];
-        $stmt = $pdo->prepare($sql);
+        $sqlTable = $reponse["up"];
+        $stmt = $pdo->prepare($sqlTable);
         $stmt->execute();
         echo "updating migrations table \n";
-        $stmt = $pdo->prepare("INSERT INTO migrations (migration) VALUES (?)");
+        $sqlFile = addFileInMig();
+        $stmt = $pdo->prepare($sqlFile);
         $stmt->execute([$file]);
     }
 }
