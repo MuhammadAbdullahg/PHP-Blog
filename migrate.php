@@ -18,6 +18,8 @@ foreach($files as $index => $file) {
         $sqlFile = addFileInMig();
         $stmt = $pdo->prepare($sqlFile);
         $stmt->execute([$file]);
+    } else {
+        execFileCheck();
     }
 }
 
