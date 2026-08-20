@@ -1,3 +1,4 @@
+<?php require __DIR__ . '/../../../config/config.php' ?>
 <?php require __DIR__ . '/partials/header.php' ?>
         <h1>Log in</h1>
         <?php if(!empty($errors)) : ?>
@@ -16,5 +17,5 @@
           </div>
           <button type="submit" class="btn">Log in</button>
         </form>
-        <p class="link-row">No account? <a href="/PHP-blog/public/register">Register</a></p>
+        <p class="link-row">No account? <a href="<?= $commonPath ?>register">Register</a></p>
 <?php require __DIR__ . '/partials/footer.php' ?>

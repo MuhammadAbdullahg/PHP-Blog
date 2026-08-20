@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Core\Session;
+use App\Middleware\AuthMiddleware;
 use App\Models\PostModel;
 
 class PostsController {
@@ -16,7 +17,7 @@ class PostsController {
 
     public function addPost() {
         Session::sessionStart();
-        Session::has('user_id');
+        (new AuthMiddleware())->handle();
         $errors = [];
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
                 $file = $_FILES['image'];
@@ -47,7 +48,7 @@ class PostsController {
                                     if (move_uploaded_file($fileTmpName, $fileDestination)) {
                                         PostModel::addPost($_SESSION['user_id'], $newFileName, $title, $category, $fileDestination, $content);
 
-                                        header("Location: /PHP-blog/public/");
+                                        header("Location: {$commonPath}");
                                         exit();
                                     } else {
                                         $errors[] = "Failed to move uploaded file.";
@@ -68,7 +69,6 @@ class PostsController {
 
     public function category() {
         Session::sessionStart();
-        Session::has('user_id');
 
         $posts = PostModel::allPosts();
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -78,8 +78,23 @@ class PostsController {
         }
 
         require __DIR__ . '/../Views/posts/category.view.php';
-        if(empty($post)) {
+        if(empty($posts)) {
             echo "no post found";
         }
+    }
+
+    public function posts() {
+        Session::sessionStart();
+
+        $posts = PostModel::allPosts();
+
+        require __DIR__ . '/../Views/posts/posts.view.php';
+        if(empty($posts)) {
+            echo "no post found";
+        }
+    }
+
+    public function allPosts() {
+        self::posts();
     }
 }

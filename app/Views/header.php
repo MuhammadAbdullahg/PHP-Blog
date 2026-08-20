@@ -1,3 +1,4 @@
+<?php require __DIR__ . '/../../config/config.php' ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Page | Blog Website</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../public/style.css" />
     <script
       src="https://kit.fontawesome.com/7a4b62b0a4.js"
       crossorigin="anonymous"
@@ -16,22 +17,22 @@
       <nav>
         <h1>Great Zone</h1>
         <ul>
-          <a href="/PHP-blog/public/">
+          <a href="<?= $commonPath ?>">
             <li>Home</li>
           </a>
           <li>
-            <a href="/PHP-blog/public/addPost">Add Post</a>
+            <a href="<?= $commonPath ?>posts">Posts</a>
           </li>
           <li>
-            <a href="/PHP-blog/public/category">category</a>
+            <a href="<?= $commonPath ?>category">category</a>
           </li>
           <?php if(isset($_SESSION['user_id'])) : ?>
             <li>
-              <a href="/PHP-blog/public/logout">Logout</a>
+              <a href="<?= $commonPath ?>logout">Logout</a>
             </li>
           <?php else : ?>
             <li>
-              <a href="/PHP-blog/public/login">Login</a>
+              <a href="<?= $commonPath ?>login">Login</a>
             </li>
           <?php endif; ?>
           <?php if(isset($_SESSION['user_name'])) : ?>
