@@ -1,6 +1,6 @@
 <?php
-
 namespace App\Controllers;
+require __DIR__ . '/../../config/config.php';
 
 use App\Core\Session;
 use App\Models\UserModel;
@@ -30,7 +30,7 @@ class AuthController {
                 Session::set('user_id', $userData['user_id']);
                 Session::set('user_name', $userData['name']);
                 
-                header("Location: {$path}");
+                header("Location: /PHP-Blog/public/");
                 exit();
             }
         }

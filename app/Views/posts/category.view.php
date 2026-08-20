@@ -11,5 +11,5 @@
         </ul>
       </nav>
 </form>
-<?php require __DIR__ . '/posts.view.php' ?>
+<?php require __DIR__ . '/postsData.view.php' ?>
 <?php require __DIR__ . '/../footer.php' ?>

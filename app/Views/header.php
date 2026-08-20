@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Page | Blog Website</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../public/style.css" />
     <script
       src="https://kit.fontawesome.com/7a4b62b0a4.js"
       crossorigin="anonymous"
@@ -21,7 +21,7 @@
             <li>Home</li>
           </a>
           <li>
-            <a href="<?= $commonPath ?>addPost">Add Post</a>
+            <a href="<?= $commonPath ?>posts">Posts</a>
           </li>
           <li>
             <a href="<?= $commonPath ?>category">category</a>
