@@ -6,8 +6,8 @@ use App\Core\Session;
 
 class AuthMiddleware {
     public function handle() {
-        if(Session::has('user_id')) {
-            header("Location: {$commonPath}login");
+        if(!Session::has('user_id')) {
+            header("Location: {$GLOBALS['commonPath']}login");
             exit();
         }
     }

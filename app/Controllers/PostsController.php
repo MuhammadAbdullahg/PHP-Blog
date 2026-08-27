@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Core\Session;
-use App\Middleware\AuthMiddleware;
 use App\Models\PostModel;
 
 class PostsController {
@@ -16,8 +15,8 @@ class PostsController {
     }
 
     public function addPost() {
-        Session::sessionStart();
-        (new AuthMiddleware())->handle();
+        // Session::sessionStart();
+
         $errors = [];
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
                 $file = $_FILES['image'];
@@ -46,9 +45,10 @@ class PostsController {
                                 $fileDestination = $uploadDirectory . $newFileName;
 
                                     if (move_uploaded_file($fileTmpName, $fileDestination)) {
+                                        Session::sessionStart();
                                         PostModel::addPost($_SESSION['user_id'], $newFileName, $title, $category, $fileDestination, $content);
 
-                                        header("Location: {$commonPath}");
+                                        header("Location: {$GLOBALS['commonPath']}");
                                         exit();
                                     } else {
                                         $errors[] = "Failed to move uploaded file.";
@@ -96,5 +96,11 @@ class PostsController {
 
     public function allPosts() {
         self::posts();
+    }
+
+    public function post() {
+        $id = $_GET['id'];
+        $post = PostModel::post($id);
+        require __DIR__ . '/../Views/posts/post.view.php';
     }
 }

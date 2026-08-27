@@ -15,12 +15,18 @@ class PostModel {
     public static function addPost($user_id, $newFileName, $title, $category, $fileDestination, $content) {
         $sql = "INSERT INTO posts (user_id, file_name, title, category, image_path, content) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = (new Database())->getConnection()->prepare($sql);
-        $stmt->execute([$_SESSION[$user_id], $newFileName, $title, $category, $fileDestination, $content]);
+        $stmt->execute([$user_id, $newFileName, $title, $category, $fileDestination, $content]);
     }
 
     public static function category($category) {
         $stmt = (new Database())->getConnection()->prepare("SELECT * FROM posts WHERE category = ?");
         $stmt->execute([$category]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function post($id) {
+        $stmt = (new Database)->getConnection()->prepare("SELECT * FROM posts WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
