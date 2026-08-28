@@ -1,3 +1,10 @@
+<?php
+require __DIR__ . '/../../../autoload.php';
+
+use App\Config\AppConfig;
+
+$configData = (new AppConfig())->configVar();
+?>
 <?php require __DIR__ . '/../header.php' ?>
     <main>
       <section id="hero">
@@ -12,7 +19,7 @@
       <?php require __DIR__ . '/postsData.view.php' ?>
       <div style="width: 87vw; display: flex; align-items: center; justify-content: end;">
         <button type="submit" name="allPosts" value="allPosts">
-            <a href="<?= $commonPath ?>allPosts" style="color: #fff;">All Posts</a>
+            <a href="<?= $configData['commonPath'] ?>allPosts" style="color: #fff;">All Posts</a>
         </button>
       </div>
     </main>

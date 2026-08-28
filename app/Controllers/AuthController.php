@@ -1,15 +1,16 @@
 <?php
 namespace App\Controllers;
 
+use App\Config\AppConfig;
 use App\Core\Session;
 use App\Models\UserModel;
 
 class AuthController {
     public $loginErrors = [];
     public $registerErrors = [];
+    private $commonPath;
     public function login() {
-        // Session::sessionStart();
-  
+        $this->commonPath = (new AppConfig())->getCommonPath();
         if($_SERVER['REQUEST_METHOD'] == "POST") {
             $email = trim($_POST['email']);
             $password = $_POST['password'];
@@ -28,12 +29,11 @@ class AuthController {
                 Session::set('user_id', $userData['user_id']);
                 Session::set('user_name', $userData['name']);
                 
-                header("Location: {$GLOBALS['commonPath']}");
+                header("Location: {$this->commonPath}");
                 exit();
             }
             self::getLogin();
         }
-        self::getLogin();
     }
 
     public function getLogin() {
@@ -61,7 +61,7 @@ class AuthController {
             if(empty($this->registerErrors)) {
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                 UserModel::addUser($name, $email, $hashedPassword);
-                header("Location: {$GLOBALS['commonPath']}login");
+                header("Location: {$this->commonPath}login");
                 exit();
             }
             self::getRegister();
@@ -76,7 +76,7 @@ class AuthController {
     public function logout() {
         Session::destroy();
 
-        header("Location: {$GLOBALS['commonPath']}");
+        header("Location: {$this->commonPath}");
         exit();
     }
 }
