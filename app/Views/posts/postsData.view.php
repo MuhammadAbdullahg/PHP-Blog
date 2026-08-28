@@ -1,4 +1,10 @@
-<?php require __DIR__ . '/../../../config/config.php' ?>
+<?php
+require __DIR__ . '/../../../autoload.php';
+
+use App\Config\AppConfig;
+
+$configData = (new AppConfig())->configVar();
+?>
     <?php if(!empty($posts)) : ?>
           <div style="width: 100%; display: flex; flex-wrap: wrap; align-items:center; justify-content: space-between; ">
             <?php foreach($posts as $post) : ?>
@@ -16,7 +22,7 @@
                 </p>
                 <div class="status">
                   <p style="padding: 1rem;"><?= $post['created_at'] ?></p>
-                  <a href="<?= $commonPath ?>post?id=<?= $post['id'] ?>" style="padding: 1rem;"><button class="read-btn">Read More</button></a>
+                  <a href="<?= $configData['commonPath'] ?>post?id=<?= $post['id'] ?>" style="padding: 1rem;"><button class="read-btn">Read More</button></a>
                 </div>
               </div>
             <?php endforeach; ?>

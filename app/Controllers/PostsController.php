@@ -4,19 +4,18 @@ namespace App\Controllers;
 
 use App\Core\Session;
 use App\Models\PostModel;
-
+use App\Config\AppConfig;
 class PostsController {
+    private $commonPath;
     public function index() {
-        Session::sessionStart();
-
+        $this->commonPath = (new AppConfig())->getCommonPath();
+        
         $posts = PostModel::allPosts();
 
         require __DIR__ . '/../Views/posts/index.view.php';
     }
 
     public function addPost() {
-        // Session::sessionStart();
-
         $errors = [];
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
                 $file = $_FILES['image'];
@@ -47,8 +46,8 @@ class PostsController {
                                     if (move_uploaded_file($fileTmpName, $fileDestination)) {
                                         Session::sessionStart();
                                         PostModel::addPost($_SESSION['user_id'], $newFileName, $title, $category, $fileDestination, $content);
-
-                                        header("Location: {$GLOBALS['commonPath']}");
+                                        $this->commonPath = (new AppConfig())->getCommonPath();
+                                        header("Location: {$this->commonPath}");
                                         exit();
                                     } else {
                                         $errors[] = "Failed to move uploaded file.";
@@ -68,8 +67,6 @@ class PostsController {
     }
 
     public function category() {
-        Session::sessionStart();
-
         $posts = PostModel::allPosts();
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $category = trim($_POST['category']);

@@ -1,4 +1,10 @@
-<?php require __DIR__ . '/../../config/config.php' ?>
+<?php
+require __DIR__ . '/../../autoload.php';
+
+use App\Config\AppConfig;
+
+$configData = (new AppConfig())->configVar();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,22 +23,22 @@
       <nav>
         <h1>Great Zone</h1>
         <ul>
-          <a href="<?= $commonPath ?>">
+          <a href="<?= $configData['commonPath'] ?>">
             <li>Home</li>
           </a>
           <li>
-            <a href="<?= $commonPath ?>posts">Posts</a>
+            <a href="<?= $configData['commonPath'] ?>posts">Posts</a>
           </li>
           <li>
-            <a href="<?= $commonPath ?>category">category</a>
+            <a href="<?= $configData['commonPath'] ?>category">category</a>
           </li>
           <?php if(isset($_SESSION['user_id'])) : ?>
             <li>
-              <a href="<?= $commonPath ?>logout">Logout</a>
+              <a href="<?= $configData['commonPath'] ?>logout">Logout</a>
             </li>
           <?php else : ?>
             <li>
-              <a href="<?= $commonPath ?>login">Login</a>
+              <a href="<?= $configData['commonPath'] ?>login">Login</a>
             </li>
           <?php endif; ?>
           <?php if(isset($_SESSION['user_name'])) : ?>
