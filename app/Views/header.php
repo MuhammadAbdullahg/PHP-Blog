@@ -3,7 +3,7 @@ require __DIR__ . '/../../autoload.php';
 
 use App\Config\AppConfig;
 
-$configData = (new AppConfig())->configVar();
+$commonPath = AppConfig::getCommonPath();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,22 +23,22 @@ $configData = (new AppConfig())->configVar();
       <nav>
         <h1>Great Zone</h1>
         <ul>
-          <a href="<?= $configData['commonPath'] ?>">
+          <a href="<?= $commonPath ?>">
             <li>Home</li>
           </a>
           <li>
-            <a href="<?= $configData['commonPath'] ?>posts">Posts</a>
+            <a href="<?= $commonPath ?>posts">Posts</a>
           </li>
           <li>
-            <a href="<?= $configData['commonPath'] ?>category">category</a>
+            <a href="<?= $commonPath ?>category">category</a>
           </li>
           <?php if(isset($_SESSION['user_id'])) : ?>
             <li>
-              <a href="<?= $configData['commonPath'] ?>logout">Logout</a>
+              <a href="<?= $commonPath ?>logout">Logout</a>
             </li>
           <?php else : ?>
             <li>
-              <a href="<?= $configData['commonPath'] ?>login">Login</a>
+              <a href="<?= $commonPath ?>login">Login</a>
             </li>
           <?php endif; ?>
           <?php if(isset($_SESSION['user_name'])) : ?>

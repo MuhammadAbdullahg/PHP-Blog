@@ -10,7 +10,7 @@ class AuthController {
     public $registerErrors = [];
     private $commonPath;
     public function login() {
-        $this->commonPath = (new AppConfig())->getCommonPath();
+        $this->commonPath = AppConfig::getCommonPath();
         if($_SERVER['REQUEST_METHOD'] == "POST") {
             $email = trim($_POST['email']);
             $password = $_POST['password'];
@@ -74,6 +74,7 @@ class AuthController {
     }
 
     public function logout() {
+        $this->commonPath = AppConfig::getCommonPath();
         Session::destroy();
 
         header("Location: {$this->commonPath}");

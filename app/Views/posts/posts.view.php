@@ -3,13 +3,13 @@ require __DIR__ . '/../../../autoload.php';
 
 use App\Config\AppConfig;
 
-$configData = (new AppConfig())->configVar();
+$commonPath = AppConfig::getCommonPath();
 ?>
 <?php require __DIR__ . '/../header.php' ?>
 <form method="post">
 <div style="width: 95vw; display: flex; align-items: center; justify-content: end;">
     <button type="submit" name="allPosts" value="allPosts">
-        <a href="<?= $configData['commonPath'] ?>addPost" style="color: #fff; margin-right:  1rem;">Add Post</a>
+        <a href="<?= $commonPath ?>addPost" style="color: #fff; margin-right:  1rem;">Add Post</a>
     </button>
 </div>
 </form>

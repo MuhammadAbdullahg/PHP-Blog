@@ -3,7 +3,7 @@ require __DIR__ . '/../../../autoload.php';
 
 use App\Config\AppConfig;
 
-$configData = (new AppConfig())->configVar();
+$commonPath = AppConfig::getCommonPath();
 ?>
 <?php require __DIR__ . '/../header.php' ?>
     <main>
@@ -19,7 +19,7 @@ $configData = (new AppConfig())->configVar();
       <?php require __DIR__ . '/postsData.view.php' ?>
       <div style="width: 87vw; display: flex; align-items: center; justify-content: end;">
         <button type="submit" name="allPosts" value="allPosts">
-            <a href="<?= $configData['commonPath'] ?>allPosts" style="color: #fff;">All Posts</a>
+            <a href="<?= $commonPath ?>allPosts" style="color: #fff;">All Posts</a>
         </button>
       </div>
     </main>

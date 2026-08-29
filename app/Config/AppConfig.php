@@ -12,35 +12,35 @@
 // }
 namespace App\Config;
 class AppConfig {
-    private $path;
-    private $requestMethod;
-    private $commonPath;
-    private $requestUri;
-    private $uri;
+    private static $path;
+    private static $requestMethod;
+    private static $commonPath;
+    private static $requestUri;
+    private static $uri;
 
-    public function uriPath() {
-        return $this->path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    public static function uriPath() {
+        return self::$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     }
 
-    public function getReqMet() {
-        return $this->requestMethod = $_SERVER['REQUEST_METHOD'];
+    public static function getReqMet() {
+        return self::$requestMethod = $_SERVER['REQUEST_METHOD'];
     }
 
-    public function getCommonPath() {
-        return $this->commonPath = "/PHP-Blog/public/";
+    public static function getCommonPath() {
+        return self::$commonPath = "/PHP-Blog/public/";
     }
 
-    public function getReqUri() {
-        return $this->requestUri = str_replace("/PHP-Blog/public", "", $this->path);
+    public static function getReqUri() {
+        return self::$requestUri = str_replace("/PHP-Blog/public", "", self::$path);
     }
 
-    public function getUri() {
-        $uri = rtrim($this->requestUri, "/");
+    public static function getUri() {
+        $uri = rtrim(self::$requestUri, "/");
 
         if($uri == "") {
             $uri = "/";
         }
-        return $this->uri = $uri;
+        return self::$uri = $uri;
     }
 
     public function configVar() {
