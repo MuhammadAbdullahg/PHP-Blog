@@ -76,7 +76,6 @@ class AuthController {
     public function logout() {
         $this->commonPath = AppConfig::getCommonPath();
         Session::destroy();
-
         header("Location: {$this->commonPath}");
         exit();
     }
