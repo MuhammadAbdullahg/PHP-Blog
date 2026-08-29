@@ -8,8 +8,6 @@ use App\Config\AppConfig;
 class PostsController {
     private $commonPath;
     public function index() {
-        $this->commonPath = (new AppConfig())->getCommonPath();
-        
         $posts = PostModel::allPosts();
 
         require __DIR__ . '/../Views/posts/index.view.php';
@@ -44,9 +42,8 @@ class PostsController {
                                 $fileDestination = $uploadDirectory . $newFileName;
 
                                     if (move_uploaded_file($fileTmpName, $fileDestination)) {
-                                        Session::sessionStart();
                                         PostModel::addPost($_SESSION['user_id'], $newFileName, $title, $category, $fileDestination, $content);
-                                        $this->commonPath = (new AppConfig())->getCommonPath();
+                                        $this->commonPath = AppConfig::getCommonPath();
                                         header("Location: {$this->commonPath}");
                                         exit();
                                     } else {

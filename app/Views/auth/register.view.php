@@ -3,7 +3,7 @@ require __DIR__ . '/../../../autoload.php';
 
 use App\Config\AppConfig;
 
-$configData = (new AppConfig())->configVar();
+$commonPath = AppConfig::getCommonPath();
 ?>
 <?php require __DIR__ . '/partials/header.php' ?>
         <h1>Create account</h1>
@@ -28,6 +28,6 @@ $configData = (new AppConfig())->configVar();
           <button type="submit" class="btn">Register</button>
         </form>
         <p class="link-row">
-          Already have an account? <a href="<?= $configData['commonPath'] ?>login">Login</a>
+          Already have an account? <a href="<?= $commonPath ?>login">Login</a>
         </p>
 <?php require __DIR__ . '/partials/footer.php' ?>
