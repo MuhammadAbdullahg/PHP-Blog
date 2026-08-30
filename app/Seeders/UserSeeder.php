@@ -1,15 +1,39 @@
 <?php
-
+namespace App\Seeders;
 require __DIR__ . '/../../autoload.php';
-use App\Core\Database;
-use App\Core\Session;
 use App\Models\UserModel;
-Session::sessionStart();
-var_dump(Session::get("user_id"));
-exit();
 class UserSeeder {
     public static function run() {
-        UserModel::addUser("hello", "hello@gmail.com", password_hash("hello", PASSWORD_DEFAULT));
+        $users = [
+            [
+                'name' => 'Alice Smith',
+                'email' => 'alice@example.com',
+                'password' => password_hash('securepass1', PASSWORD_DEFAULT)
+            ],
+            [
+                'name' => 'Bob Jones',
+                'email' => 'bob@example.com',
+                'password' => password_hash('securepass2', PASSWORD_DEFAULT)
+            ],
+            [
+                'name' => 'Charlie Brown',
+                'email' => 'charlie@example.com',
+                'password' => password_hash('securepass3', PASSWORD_DEFAULT)
+            ],
+            [
+                'name' => 'Diana Prince',
+                'email' => 'diana@example.com',
+                'password' => password_hash('securepass4', PASSWORD_DEFAULT)
+            ],
+            [
+                'name' => 'Ethan Hunt',
+                'email' => 'ethan@example.com',
+                'password' => password_hash('securepass5', PASSWORD_DEFAULT)
+            ]
+        ];
+        foreach ($users as $key => $user) {
+            UserModel::addUser($user['name'], $user['email'], $user['password']);
+        }
         echo "data added";
     }
 }
