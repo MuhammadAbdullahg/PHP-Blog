@@ -5,10 +5,12 @@ namespace App\Controllers;
 use App\Core\Session;
 use App\Models\PostModel;
 use App\Config\AppConfig;
+use PDO;
+
 class PostsController {
     private $commonPath;
     public function index() {
-        $posts = PostModel::allPosts();
+        $posts = PostModel::data("posts");
 
         require __DIR__ . '/../Views/posts/index.view.php';
     }
@@ -64,11 +66,11 @@ class PostsController {
     }
 
     public function category() {
-        $posts = PostModel::allPosts();
+        $posts = PostModel::data("posts");
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $category = trim($_POST['category']);
     
-            $posts = PostModel::category($category);
+            $posts = PostModel::find("posts", "category", "fetch", PDO::FETCH_ASSOC, $category);
         }
 
         require __DIR__ . '/../Views/posts/category.view.php';
@@ -80,7 +82,7 @@ class PostsController {
     public function posts() {
         Session::sessionStart();
 
-        $posts = PostModel::allPosts();
+        $posts = PostModel::data("posts");
 
         require __DIR__ . '/../Views/posts/posts.view.php';
         if(empty($posts)) {
@@ -94,7 +96,7 @@ class PostsController {
 
     public function post() {
         $id = $_GET['id'];
-        $post = PostModel::post($id);
+        $post = PostModel::find("posts", "id", "fetch", PDO::FETCH_ASSOC, $id);
         require __DIR__ . '/../Views/posts/post.view.php';
     }
 }

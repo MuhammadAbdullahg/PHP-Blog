@@ -10,6 +10,7 @@ class PostSeeder {
         $stmt = (new Database())->getConnection()->prepare("SELECT user_id FROM users");
         $stmt->execute();
         $ids = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        var_dump($ids);
         foreach($ids as $id) {
             PostModel::addPost($id,'IMG_6a69de54ed3102.87158791.png', 'Qui doloremque qui i', 'Science', 'uploads/IMG_6a69de54ed3102.87158791.png', 'Voluptatem saepe inc');
         }

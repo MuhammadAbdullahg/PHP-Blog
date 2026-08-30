@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Config\AppConfig;
 use App\Core\Session;
 use App\Models\UserModel;
+use PDO;
 
 class AuthController {
     public $loginErrors = [];
@@ -19,11 +20,12 @@ class AuthController {
                 $this->loginErrors[] = "Please fill all field";
             }
       
-            $userData = UserModel::findByEmail($email);
+            $userData = UserModel::find("users", "email", "fetch", PDO::FETCH_ASSOC, $email);
         
             if(!$userData || !password_verify($password, $userData['password'])) {
                 $this->loginErrors[] = "Invalid email or password";
             }
+            var_dump($this->loginErrors);
       
             if(empty($this->loginErrors)) {
                 Session::set('user_id', $userData['user_id']);
@@ -52,7 +54,7 @@ class AuthController {
                 $this->registerErrors[] = "Please fill all field";
             }
       
-            $existingUser = UserModel::findByEmail($email);
+            $existingUser = UserModel::find("users", "email", "fetch", PDO::FETCH_ASSOC, $email);
         
             if($existingUser) {
                 $this->registerErrors[] = "User already exist";
