@@ -70,7 +70,7 @@ class PostsController {
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $category = trim($_POST['category']);
     
-            $posts = PostModel::find("posts", "category", "fetch", PDO::FETCH_ASSOC, $category);
+            $posts = PostModel::find("posts", "category", "fetchAll", PDO::FETCH_ASSOC, $category);
         }
 
         require __DIR__ . '/../Views/posts/category.view.php';
