@@ -12,7 +12,7 @@ class PostSeeder {
         $ids = $stmt->fetchAll(PDO::FETCH_COLUMN);
         var_dump($ids);
         foreach($ids as $id) {
-            PostModel::addPost($id,'IMG_6a69de54ed3102.87158791.png', 'Qui doloremque qui i', 'Science', 'uploads/IMG_6a69de54ed3102.87158791.png', 'Voluptatem saepe inc');
+            PostModel::addPost($id,'IMG_6a93d3f68ec758.81811828.jpg', 'Qui doloremque qui i', 'Science', 'uploads/IMG_6a69de54ed3102.87158791.png', 'Voluptatem saepe inc');
         }
         echo "posts Added";
     }

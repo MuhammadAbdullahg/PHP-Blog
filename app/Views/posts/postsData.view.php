@@ -18,11 +18,26 @@ $commonPath = AppConfig::getCommonPath();
               </div>
                 <h2><?= $post['title'] ?></h2>
                 <p>
-                  <?= $shortText ?>
+                  <?= $shortText ?><a href="<?= $commonPath ?>post?id=<?= $post['post_id'] ?>" style="padding: 1rem;"><button class="read-btn">Read More</button></a>
                 </p>
                 <div class="status">
-                  <p style="padding: 1rem;"><?= $post['created_at'] ?></p>
-                  <a href="<?= $commonPath ?>post?id=<?= $post['id'] ?>" style="padding: 1rem;"><button class="read-btn">Read More</button></a>
+                  <?php 
+                    $currenttime = time();
+                    $created_at = strtotime($post['created_at']);
+                    $timeAgo = $currenttime - $created_at;
+                    
+                    if($timeAgo < 60) {
+                      $whenPostCreated = "Just Now";
+                    } elseif($timeAgo < 3600) {
+                      $whenPostCreated = floor($timeAgo / 60) . " minutes ago";
+                    } elseif($timeAgo < 86400) {
+                      $whenPostCreated = floor($timeAgo / 3600) . " hours ago";
+                    } else {
+                      $days = floor($timeAgo / 86400);
+                      $whenPostCreated = $days . ($days == 1 ? " day ago" : " days ago");
+                    }
+                  ?>
+                  <p style="padding: 1rem;"><?= $whenPostCreated ?></p>
                 </div>
               </div>
             <?php endforeach; ?>

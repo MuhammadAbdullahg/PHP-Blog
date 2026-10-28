@@ -20,7 +20,7 @@ class AuthController {
                 $this->loginErrors[] = "Please fill all field";
             }
       
-            $userData = UserModel::find("users", "email", "fetch", PDO::FETCH_ASSOC, $email);
+            $userData = UserModel::find("users", "useremail", "fetch", PDO::FETCH_ASSOC, $email);
         
             if(!$userData || !password_verify($password, $userData['password'])) {
                 $this->loginErrors[] = "Invalid email or password";

@@ -22,4 +22,16 @@ class Model {
         $stmt = (new Database())->getConnection()->prepare($sql);
         $stmt->execute($params);
     }
+
+    public static function getLikes($postId) {
+        $stmt = (new Database())->getConnection()->prepare("SELECT COUNT(*) FROM postslike WHERE post_id = ?");
+        $stmt->execute([$postId]);
+        return $stmt->fetchColumn();
+    }
+
+    public static function checkPostLike($userId, $postId) {
+        $stmt = (new Database())->getConnection()->prepare("SELECT COUNT(*) FROM postslike WHERE user_id = ? AND post_id = ?");
+        $stmt->execute([$userId, $postId]);
+        return $stmt->fetchColumn();
+    }
 }

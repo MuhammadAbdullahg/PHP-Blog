@@ -11,7 +11,6 @@ class Session {
 
     public static function set(string $key, $value) {
         $_SESSION[$key] = $value;
-        var_dump($_SESSION);
     }
 
     public static function get(string $key, $default = null) {

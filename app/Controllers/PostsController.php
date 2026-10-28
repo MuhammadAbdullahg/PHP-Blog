@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Core\Session;
 use App\Models\PostModel;
 use App\Config\AppConfig;
+use App\Middleware\AuthMiddleware;
+use App\Models\Model;
 use PDO;
 
 class PostsController {
@@ -85,10 +87,90 @@ class PostsController {
         $posts = PostModel::data("posts");
 
         require __DIR__ . '/../Views/posts/posts.view.php';
+        
         if(empty($posts)) {
             echo "no post found";
         }
     }
+
+    
+    public function toggleLike(): void {
+        Session::sessionStart();
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        // 1. Receive and validate the post ID.
+        $postId = filter_input(
+            INPUT_POST,
+            'post_id',
+            FILTER_VALIDATE_INT
+        );
+
+        if (!$postId || $postId < 1) {
+            http_response_code(400);
+
+            echo json_encode([
+                'success' => false,
+                'message' => 'Invalid post ID.'
+            ]);
+            return;
+        }
+
+        // 2. Identify the logged-in user.
+        $userId = $_SESSION['user_id'] ?? null;
+
+        if (!$userId) {
+            http_response_code(401);
+
+            echo json_encode([
+                'success' => false,
+                'message' => 'Please log in first.'
+            ]);
+            return;
+        }
+
+        // 3. Check whether this user already liked the post.
+        $likeExists = Model::checkPostLike(
+            $userId,
+            $postId
+        );
+        $liked = null;
+
+        // 4. Toggle the like.
+        if ($likeExists) {
+            PostModel::likeOrDislikePost(
+                $postId,
+                "DELETE FROM postslike
+                WHERE user_id = :userId
+                AND post_id = :postId"
+            );
+
+            $liked = false;
+        } else {
+            PostModel::likeOrDislikePost($postId);
+
+            $liked = true;
+        }
+
+        // 5. Get the new total.
+        $likes = Model::getLikes($postId);
+
+        // 6. Return JSON to jQuery.
+        echo json_encode([
+            'success' => true,
+            'liked' => $liked,
+            'like_count' => (int) $likes
+        ]);
+    }
+
+    public function comment() {
+        Session::sessionStart();
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        
+    }
+
 
     public function allPosts() {
         self::posts();
@@ -96,7 +178,23 @@ class PostsController {
 
     public function post() {
         $id = $_GET['id'];
-        $post = PostModel::find("posts", "id", "fetch", PDO::FETCH_ASSOC, $id);
+        $userId = $_SESSION['user_id'] ?? null;
+        $likeExists = Model::checkPostLike(
+            $userId,
+            $id
+        );
+        $liked = null;
+
+        // 4. Toggle the like.
+        if ($likeExists == 1) {
+            $liked = true;
+        } else {
+            $liked = false;
+        }
+
+        $post = PostModel::find("posts", "post_id", "fetch", PDO::FETCH_ASSOC, $id);
+        $likes = Model::getLikes($id);
+        
         require __DIR__ . '/../Views/posts/post.view.php';
     }
 }

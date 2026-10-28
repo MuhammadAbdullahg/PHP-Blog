@@ -7,7 +7,11 @@ $migration = new Migration();
 
 [$executedFiles, $newFiles, $files] = $migration->getMigrationAndSqlFiles();
 
+// var_dump($executedFiles);
+// var_dump($newFiles);
+// var_dump($files);
 foreach($files as $index => $file) {
+    var_dump($file);
     if(!in_array($file, $executedFiles)) {
         $newFiles[] = $file;
         $fn = substr($file,11);
@@ -21,7 +25,9 @@ foreach($files as $index => $file) {
         $stmt = (new Database())->getConnection()->prepare($sqlFile);
         $stmt->execute([$file]);
     } else {
-        $migration->execFileCheck();
+        if(count($files) == count($executedFiles)) {
+            $migration->execFileCheck();
+        }
     }
 }
 
