@@ -16,4 +16,15 @@ class PostModel extends Model {
         $stmt = (new Database())->getConnection()->prepare($sql);
         $stmt->execute(['userId' => $_SESSION['user_id'], 'postId' => $postId]);
     }
+
+    public static function addComment($userId, $postId, $comment) {
+        $stmt = (new Database())->getConnection()->prepare("INSERT INTO comments(user_id, post_id, comment) VALUES (?, ?, ?)");
+        $stmt->execute([$userId, $postId, $comment]);
+    }
+
+    public static function getComments($postId) {
+        $stmt = (new Database())->getConnection()->prepare("SELECT users.username, comments.comment FROM comments INNER JOIN users ON comments.user_id = users.user_id WHERE comments.post_id = ?");
+        $stmt->execute([$postId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

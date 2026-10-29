@@ -29,7 +29,7 @@ class AuthController {
       
             if(empty($this->loginErrors)) {
                 Session::set('user_id', $userData['user_id']);
-                Session::set('user_name', $userData['name']);
+                Session::set('user_name', $userData['username']);
                 
                 header("Location: {$this->commonPath}");
                 exit();

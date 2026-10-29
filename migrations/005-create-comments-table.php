@@ -4,6 +4,7 @@ return [
         `comment_id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
         `user_id` int(11) NOT NULL,
         `post_id` int(11) NOT NULL,
+        `comment` TEXT NOT NULL,
         `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
         `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP()
         ON UPDATE CURRENT_TIMESTAMP(),

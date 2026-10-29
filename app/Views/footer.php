@@ -33,6 +33,9 @@
             $.ajax({
                 type: "POST",
                 url: "<?= $commonPath ?>like",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest"
+                },
 
                 data: {
                     post_id: postId
@@ -68,12 +71,15 @@
                 },
 
                 error: function (xhr) {
+                    console.log(xhr);
                     if (xhr.status === 401) {
-                        alert("Please log in to like a post.");
+                        const response = xhr.responseJSON;
+
+                        window.location.href =
+                            response?.redirect || "/PHP-Blog/public/login";
                     } else {
-                        alert(
-                            "Unable to update the like. Please try again."
-                        );
+                        console.log(xhr.responseText);
+                        alert("Request failed.");
                     }
                 },
 
@@ -83,7 +89,63 @@
                 }
             });
         });
-        
+
+        $(document).on("click", "#commentBtn", function (e) {
+            e.preventDefault();
+
+            const postId = $("#commentBtn").data("post-id");
+
+            const comment = $("#commentInput").val();
+
+            $.ajax({
+                type:"POST",
+                url: "<?= $commonPath ?>comment",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+
+                data: {
+                    post_id: postId,
+                    comment: comment
+                },
+
+                dataType: "json",
+                
+                success:function(response) {
+                    $(".error").text(response?.message).show();
+                    setTimeout(function() {
+                        $(".error").fadeOut('slow');
+                    }, 1000);
+                    $(".comments").empty();
+                    $("#commentInput").val("");
+                    if(response.comments) {
+                        response.comments.forEach(item => {
+                            const newHeading = $("<h3>", {
+                                text:item.username
+                            })
+                            const newPara = $("<p>", {
+                                text:item.comment
+                            })
+                            const newLine = $("<hr>");
+                            $(".comments").append(newHeading, newPara, newLine);
+                        });
+                    }
+                },
+
+                error: function (xhr) {
+                    console.log(xhr);
+                    if (xhr.status === 401) {
+                        const response = xhr.responseJSON;
+
+                        window.location.href = response?.redirect || "/PHP-Blog/public/login";
+                    } else {
+                        console.log(xhr.responseText);
+                        alert("Request failed.");
+                    }
+                },
+            })
+
+        });
 });
     </script>
   </body>

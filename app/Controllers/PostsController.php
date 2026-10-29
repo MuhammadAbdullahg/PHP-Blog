@@ -165,10 +165,47 @@ class PostsController {
 
     public function comment() {
         Session::sessionStart();
-
+        header("Access-Control-Allow-Origin: *");
         header('Content-Type: application/json; charset=utf-8');
 
+        // 1. Receive and validate the post ID.
+        $postId = filter_input(
+            INPUT_POST,
+            'post_id',
+            FILTER_VALIDATE_INT
+        );
+
+        $comment = filter_input(INPUT_POST, "comment", FILTER_SANITIZE_SPECIAL_CHARS);
+
+        if (!$postId || $postId < 1) {
+            http_response_code(400);
+
+            echo json_encode([
+                'success' => false,
+                'message' => 'Invalid post ID.'
+            ]);
+            return;
+        }
+
+        if($comment == "") {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Please enter comment.'
+            ]);
+            return;
+        }
+
+        $userId = Session::get('user_id');
         
+        PostModel::addComment($userId, $postId, $comment);
+
+        $comments = PostModel::getComments($postId);
+
+        echo json_encode([
+            'message' => 'Comment successfully',
+            'comments' => $comments,
+        ]);
+        return;
     }
 
 
@@ -194,6 +231,7 @@ class PostsController {
 
         $post = PostModel::find("posts", "post_id", "fetch", PDO::FETCH_ASSOC, $id);
         $likes = Model::getLikes($id);
+        $comments = PostModel::getComments($id);
         
         require __DIR__ . '/../Views/posts/post.view.php';
     }

@@ -24,5 +24,6 @@ $router->get("/allPosts", [PostsController::class, "allPosts"]);
 $router->get("/category", [PostsController::class, "category"]);
 $router->post("/category", [PostsController::class, "category"]);
 $router->post("/comment", [PostsController::class, "comment"], AuthMiddleware::class);
+$router->get("/comment", [PostsController::class, "comment"], AuthMiddleware::class);
 
 return $router;
