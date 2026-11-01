@@ -12,7 +12,7 @@ use PDO;
 class PostsController {
     private $commonPath;
     public function index() {
-        $posts = PostModel::data("posts");
+        $posts = PostModel::index("posts");
 
         require __DIR__ . '/../Views/posts/index.view.php';
     }

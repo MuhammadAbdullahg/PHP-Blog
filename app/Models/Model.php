@@ -12,6 +12,12 @@ class Model {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function index($table) {
+        $stmt = (new Database())->getConnection()->prepare("SELECT * FROM {$table} LIMIT 6");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public static function find($table, $column, $method, $mode = PDO::FETCH_ASSOC, $value = null) {
         $stmt = (new Database())->getConnection()->prepare("SELECT * FROM {$table} WHERE {$column} = ?");
         $stmt->execute([$value]);

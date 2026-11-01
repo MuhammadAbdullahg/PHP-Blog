@@ -20,7 +20,7 @@ $router->get("/post", [PostsController::class, "post"]);
 $router->post("/post", [PostsController::class, "post"]);
 $router->post("/like", [PostsController::class, "toggleLike"], AuthMiddleware::class);
 $router->get("/posts", [PostsController::class, "posts"]);
-$router->get("/allPosts", [PostsController::class, "allPosts"]);
+$router->get("/allPosts", [PostsController::class, "posts"]);
 $router->get("/category", [PostsController::class, "category"]);
 $router->post("/category", [PostsController::class, "category"]);
 $router->post("/comment", [PostsController::class, "comment"], AuthMiddleware::class);
