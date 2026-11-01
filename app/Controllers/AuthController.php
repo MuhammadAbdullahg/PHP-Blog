@@ -54,7 +54,7 @@ class AuthController {
                 $this->registerErrors[] = "Please fill all field";
             }
       
-            $existingUser = UserModel::find("users", "email", "fetch", PDO::FETCH_ASSOC, $email);
+            $existingUser = UserModel::find("users", "useremail", "fetch", PDO::FETCH_ASSOC, $email);
         
             if($existingUser) {
                 $this->registerErrors[] = "User already exist";
